@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lesson 6</title>
+</head>
+<body>
+  <input id="textinput" type="text">
+  <p id="echo"></p>
+  <script>
+    // Objects/Classes
+
+    // Object Literals - not reusable
+    var book1 = {
+      title: '',
+      author: '',
+      yearPublished: 2018,
+      readBook: function() {
+        console.log('');
+      }
+    }
+    console.log(book1.title);
+    // book1.readBook();
+
+    // Adding properties and functions to existing objects
+    window.chris = 'me';
+
+    // For book1, we can add more properties and functions after the object has been created
+    book1.numberOfPages = 200;
+    book1.findPage = function(pageNumber) { return '' }
+
+    // Object properties can be accessed using dot notation OR array notation
+    // console.log(book1['numberOfPages']);
+    // console.log(book1.numberOfPages);
+
+    // create new properties/methods using array notation
+    book1['sellBook'] = function() { /* ... */ }
+
+    /*
+        instead of
+        book1.numberOfPages = someValue
+        book1.title = someValue
+
+        book1.changeObjectValue(property, value);
+
+    */
+    function changeObjectValue(property, value) {
+      // this.property = value;  DOES NOT WORK
+      this[property] = value;
+    }
+    // book1.changeObjectValue('title', 'new title');
+
+    // array('title' => 'value');
+
+
+    // Constructor Functions - Prototype Pattern
+    function Book(titleParam, authorParam, yearParam) {  // capitalization is not required, but used commonly
+      this.title = titleParam;  // this.propertyName = value ;  instead of : ,
+      this.author = authorParam;
+      this.yearPublished = yearParam;
+      this.readBook = function(message) {
+        console.log(message);
+      }
+    }
+    var book2 = new Book('my book', 'me', 2018);
+    // console.log(book2.yearPublished);
+    // book2.readBook('this is my book');
+
+    var book3 = new Book('your book', 'you', 2019);
+
+    // Adding properties and functions to objects created from constructor functions/classes - use the 'prototype' keyword
+    Book.prototype.numberOfPages = 200;
+    Book.prototype.findPage = function(page) { return '' };
+
+    // console.log(book2);
+
+    // Inheritance (using the prototype pattern)
+
+    // first create a parent (general) class
+    function Animal() {
+      this.age = 10;
+      this.move = function() {
+        console.log('moving...');
+      }
+    }
+
+    function Dog(name, breed) {
+      this.name = name;
+      this.breed = breed;
+    }
+
+    Dog.prototype = new Animal();  // this line creates the relationship between the two types and allows to access the parent properties
+
+    var dog1 = new Dog('charlie', 'ridgeback');
+    // console.log(dog1.age);  // age is inherited from animal
+    // dog1.move(); // move() is inherited from animal
+
+
+    // Inside of objects created using constructor functions (or classes) you can access the objects properties inside the function definition
+    function School(name) {
+      this.name = name;
+      this.getName = function() {
+        return this.name;
+      }
+    }
+
+    var bcit = new School('bcit');
+    // console.log(bcit.getName());  // prints 'bcit'
+
+    /*
+        NOTE:
+        For the prototype pattern variable in question 7 of the final, you are not required to add props/methods using the prototype keyword,
+        just create a constructor function and object from that function
+
+    */
+  </script>
+  <script>
+    // Hiding data in objects / private properties (data members)
+
+    // Java example (inside of a class)
+    // private variable = someValue;  // this value is not accessible directly
+
+    // function Account(name, ccNumber) {
+    //   this.name = name;
+    //   this.ccNumber = ccNumber;
+    // }
+    var myAccount = new Account('chris', 1234567823456789);
+    // console.log(myAccount.ccNumber);  // bad - we don't want to be able to access that value directly
+
+    // new version of Account constructor function
+    function Account(name, ccNumber) {
+      this.name = name;
+      this.getCCNumber = function() {
+        let hiddenCCNumber = ccNumber.slice(0, 4);
+        hiddenCCNumber += 'xxxxxxxxxxxx';
+        return hiddenCCNumber;
+      }
+      this.setCCNumber = function(newNumber) {
+        ccNumber = newNumber;
+      }
+    }
+    var safeAccount = new Account('chris', '1234567812345678');
+  </script>
+  <script>
+    // Classes
+
+    /*
+        Class - blueprint
+        Object - thing created from a blueprint
+    */
+
+    // two requirements for valid class in js - declare with keyword 'class' & include a constructor() function
+    class BookClass {
+      constructor(year, author, title) {
+        this.yearPublished = year;
+        this.title = title;
+        this.author = author;
+      }
+
+      readBook() {
+        console.log(this.title + ' was published in ' + this.year);
+      }
+    }
+    var book4 = new BookClass(2018, 'some author', 'some title');
+
+    // Inheritance using classes in js
+    class Parent {
+      constructor(name) {
+        this.lastname = name;   // this.lastname = 'harris'
+      }
+
+      speak() {
+        console.log('hello');
+      }
+    }
+
+    class Child extends Parent {
+      constructor(firstname, lastname) {
+        // NOTE: super() has to be called before you assign any other parameters
+        super(lastname);  // passes a value up to the parent class
+        this.firstname = firstname;
+      }
+    }
+
+    var instructor = new Child('chris', 'harris');
+  </script>
+  <script>
+    // ES6
+
+    // 'spread' operator
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+
+    var message = {
+      userid: 1,
+      date: new Date(),
+      body: 'This is the content of the message',
+    }
+    doSomething(message);
+
+    // imagine that you are receiving multiple objects into your doSomething function
+    function doSomething(object) {
+      // let userid = object.userid;
+      // let date = object.date;
+      // let body = object.body;
+
+      // instead of the above, we can use the spread operator to extract and declare multiple variables
+      let { userid, date, body } = object;
+
+      // console.log(userid, date, body); // you can log multiple variables/data using commas
+    }
+
+
+    // using variable number of arguments to a function through 'rest' parameters
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+    function canHaveMultipleArguments(...args) {
+      // ...args is an array of all the arguments passed into the function
+      // for (let arg of args) { console.log(arg); }
+    }
+    canHaveMultipleArguments(1, 2);
+    canHaveMultipleArguments(1, 2, 3);
+
+  </script>
+  <script>
+    // for-in loop, for question 7 of the final
+    // var book1;
+    for (var property in book1) {
+      // console.log(property);  // prints out property/method names
+      // console.log(book1[property]); // prints out property/method values
+    }
+  </script>
+  <script>
+    // Closures - wrapper around a function and all of the variables that were in scope for that function
+    function count() {
+      let x = 0;
+
+      return function() {
+        console.log(x++);
+      }
+    }
+
+    // console.log(x);  ERROR, x is out of scope
+
+    // aside: assigning functions to a variable
+    // function myFunction() {}
+    // p.onclick = myFunction;
+    // let alias = myFunction;
+    // alias();
+
+    var counter = count();  // counter = function() { console.log(x++) }
+    counter();  // 0
+    counter();  // 1
+    counter();  // 2
+
+    // counter is a closure, which has its own reference to x, so counter2 also has its own reference to x and will start at zero
+    var counter2 = count();
+    counter2();  // 0
+
+    // Callbacks - functions that are passed as arguments into other functions
+    // useful for generalizing functions and controlling how data is passed through a script
+    function operate(lhs, rhs, callback) {
+      callback(lhs, rhs);
+      // add(5, 4);
+      // subtract(5, 4);
+    }
+    function add(lhs, rhs) {
+      console.log(lhs + rhs);
+    }
+    function subtract(lhs, rhs) {
+      console.log(lhs - rhs);
+    }
+
+    operate(5, 4, add);
+    operate(5, 4, subtract);
+  </script>
+  <script>
+    // examples of things you can do with the material from this course
+
+    // echoing text into an element using dom scripting and events (from angular.js)
+    let input = document.getElementById('textinput');
+    let p = document.getElementById('echo');
+
+    onkeyup = function() {
+      console.log(event.which); // this prints the 'code' for the key
+      console.log(input.value);  // .value property returns the text that inside the input
+      p.innerHTML = input.value;
+    }
+
+    // DIY jQuery
+    function $(selector) {
+      var element = document.getElementsByTagName(selector)[0];
+      return new jQueryObject(element);
+    }
+
+    function jQueryObject(elem) {
+      this.elem = elem;
+    }
+    jQueryObject.prototype.css = function(prop, value) {
+      this.elem.style[prop] = value;
+    }
+
+    $('p').css('color', 'red');
+  </script>
+  <script>
+    // wordpress API - accessible   sitename/wp-json/wp/v2/...
+    // https://developer.wordpress.org/rest-api/reference/
+
+    // to retrieve the data from a url as above, use the fetch data
+    fetch('http://teaandmangoes.com/wp-json/wp/v2/posts')
+      .then(response => response.json())
+      .then(response => handleData(response));
+
+      // fetch() uses Promises: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      // promises are a way of enforcing synchronous behaviour
+
+    function handleData(response) {
+      // ... now start building the UI using your JSON data
+    }
+  </script>
+  <script>
+    // Tools
+
+    // CSS - stop using it, use preprocessors like *SASS*, LESS, stylus
+
+    /*
+      SASS
+      - write .scss files instead of .css (but you still link the compiled css file)
+      - .scss files have to be compiled into regular css (using apps, command-line tools like GULP)
+
+      SASS has: variables, functions, loops, mixins
+
+      line 2048 of css:
+      p.notification {
+        color: #af4400;
+      }
+
+      $primaryColor: #af4400;
+      p.notification {
+        color: $primaryColor;
+      }
+
+      a { color: blue }
+      a:hover { color: red }
+
+      a {
+        color: blue;
+        &:hover {
+          color: red;
+        }
+      }
+
+
+      // GULP - build tool (task runner) uses node and NPM
+      // in your project you define a gulpfile.js
+      // inside of gulpfile.js you define tasks that you want to run
+
+      //
+    */
+
+    // BABEL / WEBPACK
+
+    // its a good idea to 'transpile' javascript that uses ES6 features into javascript that will run anywhere
+    // babel and webpack are tools that will transpile js for you
+    
+    // webpack: https://webpack.js.org/
+
+    // webpack also lets you use 'modules' in the browser that are ordinarily only available on the server/command-line
+  </script>
+</body>
+</html>

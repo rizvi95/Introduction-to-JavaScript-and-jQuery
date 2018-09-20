@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lesson 2</title>
+  <style>
+    p {
+      color: rgb(255, 0, 0);
+    }
+  </style>
+</head>
+<body>
+
+  <img id="img1" src="" alt="">
+
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+
+  <!-- <img id="cat" src="" alt="">
+  <img id="dog" class="dog" src="" alt="">
+  <img id="anotherdog" class="dog" src="" alt="">
+  <img id="fish" src="" alt=""> -->
+
+  <p>paragraph 1</p>
+  <p>paragraph 2</p>
+  <p>paragraph 3</p>
+
+  <script>
+    var firstname = 'chris';
+    var lastname = 'harris';
+
+    // concatenating the strings in-place
+    console.log(firstname + ' ' + lastname);
+
+    // concatenating the strings, storing the result in a variable and printing out the variable
+    var fullname = firstname + ' ' + lastname;
+    // console.log(fullname)
+  </script>
+  <script>
+    // interacting with elements on the page
+    /*
+        document.getElementById('') - targets a single element on the page
+        document.images - targets all the image elements on the page
+    */
+
+    // DOM 0 - first, simplest DOM, position-based
+    //  document.images, document.links, document.forms
+
+    // document.images[0].style.border = '4px solid red';  // returns the first image on the page
+
+    // DOM 1 - more specific, powerful selectors
+    // document.getElementById(), document.getElementsByTagName(), document.getElementsByClassName
+    // document.getElementsByClassName('dog')[0].style.border = '1px solid black';
+
+    // for something with no id, no classes
+    // document.getElementsByTagName('p')[0].style.color = 'blue';
+  </script>
+  <script>
+    // Arrays - lists of items (strings, numbers, elements, ...)
+
+    // examples of variables storing a single value
+    var x = 10;
+    var firstname = 'chris';
+
+    // creating an array using square bracket notation
+    var emptyArray = [];
+    typeof(emptyArray); // this returns the data type (Number, String, Array, Object)
+    // console.log(typeof(emptyArray));  // returns object
+
+    // creating an array using the 'new' operator
+    var anotherEmptyArray = new Array();
+
+    // arrays have a 'length' property that returns how many items are in the array
+    // console.log(emptyArray.length);
+    // console.log(emptyArray[0]);  // returns undefined because there is nothing inside the array
+
+    // adding items to an array when the array is initialized
+    var courses = ['comp2015', 'comp1920', 'comp1950'];
+
+    // data types in an array can be mixed
+    var mixedArray = ['string', 20, {}, true];
+
+    // adding items using square bracket notation or .push()
+    var myArray = [];
+    myArray[0] = 'first';
+    myArray[1] = 'second';
+    // console.log(myArray);
+
+    myArray[0] = 'newfirst'; // overwrites what was initially set for position zero
+    // console.log(myArray);
+
+    // .push() inserts an item onto the end of the array
+    myArray.push('fourth');
+    myArray.push('third');
+    // console.log(myArray);
+
+    // var firstimage = document.images[0]  - example of GETTING a value from the browser
+    // document.images[0].style.border = '1px solid red' - example of SETTING a value
+
+    // you can insert items outside of the current length of the array and js will fill the empty positions for you
+    var arrayTest = ['a', 'b'];
+    arrayTest[5] = 'c';  // works, but positions 2, 3 and 4 will be filled with undefined values;
+    console.log(arrayTest);
+  </script>
+  <script>
+    // how to change properties for every item in an array
+    // eg. change the text color of all paragraphs to red
+
+    // naive solution
+    document.getElementsByTagName('p')[0].style.color = 'red';
+    document.getElementsByTagName('p')[1].style.color = 'red';
+    document.getElementsByTagName('p')[2].style.color = 'red';
+
+    // DRY - don't repeat yourself
+
+    // use for-of loop syntax
+    // for (var position of theArrayToLoopThrough) {
+    //
+    // }
+    var allParagraphs = document.getElementsByTagName('p');
+
+    for (var position of allParagraphs) {
+      allParagraphs[position].style.color = 'red';
+    }
+
+    // OR regular for loop syntax
+    /*
+        for (initializing a loop variable with starting value; specifying an end condition; how we want to increment our loop variable) {
+
+        }
+    */
+    var allParagraphs = document.getElementsByTagName('p');
+
+    // when using a for loop, use 'let' instead of 'var'
+    for (let position = 0; position < allParagraphs.length; position++) {
+      allParagraphs[position].style.color = 'red';
+    }
+
+    // NOTE: allParagraphs.style.color = 'green';  // DOES NOT WORK
+    // to set properties for ALL items in array, use a loop (recommended) or set each item manually using square bracket notation
+
+    // if a question is posed using EVERY, ALL - you need a for loop to iterate through the items in the array
+  </script>
+  <script>
+    // different keywords for declaring variables
+    var a = 10;
+    let b = 20;
+    c = 30; // not advisable
+    const d = 10; // const means the value cannot be changed
+  </script>
+  <script>
+    // A few useful methods
+
+    // convert a string into a number using parseInt()
+    // parseInt() takes a string and tries to convert it into a number
+    var width = document.getElementById('img1').style.width;
+    // width is a string -> "100px"
+    width = parseInt(width);
+    // width is now a number -> 100
+    console.log(width);
+    console.log(typeof(width));
+
+    // document.getElementById('p').style.width = (width * 2) + 'px';
+
+    // to accomplish the above in fewer steps
+    // var width = parseInt(document.getElementById('img1').style.width) * 2;
+    // document.getElementById('p').style.width = width;
+
+    // to accomplish the above in one line
+    // document.getElementById('p').style.width = parseInt(document.getElementById('img1').style.width) * 2;
+
+    // parseInt() will only successfully convert if the number is at the beginning of the string
+    parseInt('100px'); // works
+    console.log(parseInt('px100')); // does not work
+
+    // ASIDE - different widths
+    /*
+      .style.width  - depends on the style attribute of the HTML element and returns a STRING
+      <img src="" >   .style.width returns ""
+      <img src="" style="width: 100px">    .style.width returns the value ("100px")
+
+      .width - dependent on the width attribute and returns a NUMBER
+
+      .naturalWidth - the actual width before being rendered on the page
+
+      .clientWidth - takes into account any css widths that are applied to the element
+    */
+    // NOTE: if you are using a combination of .width and .style.width you will have to convert between strings and numbers
+    /*
+      i.e.
+      var firstImageWidth = document.images[0].width;  // firstImageWidth is a number (eg. 100)
+      document.images[1].style.width = firstImageWidth + 'px'  // need to convert firstImageWidth into a string with 'px' on the end
+
+
+
+
+    // isNaN() - this checks if a value is not a number
+    var myVariable = 'chris';
+    console.log(isNaN(myVariable));  // returns true because 'chris' is not a number
+
+    // note: isNaN will try to convert a string to a number
+    isNaN(10) // returns false because 10 is a number
+    isNaN("10") // also returns false, even though in this case 10 is a string
+
+
+
+    // .indexOf() - checks for the existence of a search string inside of a larger string
+    var name = 'chris';
+    console.log(name.indexOf('i')); // returns -1 (not found) or it will return the position the substring was found
+
+    // note: indexOf only finds the first instance of the search string
+    name = 'mississippi';
+    console.log(name.indexOf('i')); // returns 1 and stops
+
+    // for lab 1, part 2, finding if a name contains the letter i
+
+    // IF statements
+    // if (condition) {
+    //
+    // }
+    // var user = ['chris', 'jason'];
+    // // inside the for loop
+    // for (let i = 0; i < user.length; i++) {
+    //   if (user[i].indexOf('i') > -1) {
+    //     alert(user[i]);
+    //   }
+    // }
+
+    // Generic if statements
+    var age = prompt('please enter your age');
+
+    if (age < 16) {
+      // if age is less than 16, everything between inside the block (i.e. between { })
+      console.log('you are too young to drive');
+    }
+    else if (age > 90) {
+      console.log('you are too old to drive');
+    }
+    else {
+      // if age is greater than or equal to 16, everything inside the else block runs
+      console.log('you are old enough to drive');
+    }
+
+
+    // Logical Operators
+    /*
+        < less than
+        > greater than
+        <= less than or equal to
+        >= greater than or equal to
+        == equals
+        === equals (this also checks to see if the data type is the same)
+        && - AND
+        || - OR
+    */
+
+    // example of ==  (== does not ensure that the data types are the same)
+    var z = 10;  // = is the assignment operator
+    if (z == 10) {
+      console.log('z is equal to 10');
+    }
+    z = "10";
+    if (z == 10) {
+      console.log('z is equal to 10');
+    }
+
+    // example of ===
+    z = "10";
+    if (z === 10) {
+      console.log('z is equal to 10');
+    }
+    else {
+      console.log('z is not equal to 10');
+    }
+
+    // && and
+    // || or
+    // AND and OR can be used to test multiple conditions in one if statement
+    if (age >= 16 && age < 90) {
+      console.log('you can drive');
+    }
+    else {
+      console.log('you cannot drive');
+    }
+
+    var hasDriversLicence = true;  // Boolean variable (can only be true or false);
+    var stoleACar = true;
+
+    if (hasDriversLicence || stoleACar) {
+      console.log('you can drive');
+    }
+
+
+    // Identities for AND and OR
+    // chris teaches comp2015 and chris is 7" tall  FALSE
+    // chris teaches comp2015 and chris has brown hair  TRUE
+    // chris is 7' tall and chris has blonde hair FALSE
+    // chris has blonde hair and chris is 7' tall FALSE
+
+    // T && T equals T, otherwise F
+    // short-circuiting
+    var c = 10;
+    if (c > 20 && c <= 10) {}  // this stops checking after c > 20
+
+    // OR
+    // chris teaches comp2015 or chris is 7' tall TRUE
+    // chris doesn't teach comp2015 or chris is 7' tall  - FALSE
+    // TRUE
+    // TRUE
+
+    // F || F equals F otherwise T
+  </script>
+  <script>
+    // lab 2, part 3
+    var links = document.links;  // DOM 0
+    for (let i = 0; i < links.length; i++) {
+      //links[i].style.textDecoration = ...
+    }
+  </script>
+  <script>
+    var today = new Date();
+
+    // once you have a date variable, use .getHours() and .getMinutes() to extract the two parts, then concatenate them together with a colon in between
+    console.log( ":" );
+
+    // examples of how to do arithmetic on dates
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+    var fourthOfJuly = new Date('July 4 2018');
+
+    // .getTime() will return a number of milliseconds
+    today = today.getTime();
+    fourthOfJuly = fourthOfJuly.getTime();
+
+    var millisecondsInADay = 1000 * 60 * 60 * 24;
+
+    var difference = fourthOfJuly - today;
+    console.log('The number of days until july 4th is ' + Math.round(difference/millisecondsInADay));
+  </script>
+  <script>
+      // for lab2 part 4
+
+      // to add a class to an element, we can use the .className property
+      var allDivs = document.get...
+      for (let i = 0; i < allDivs.length; i++) {
+        allDivs[i].className = ''; // .className expects a string (the string is whatever class name you want added)
+        .style.width   // expects a string with a px value, "100px"
+        .style.height  // expects a string with a px value, "100px"
+
+        // assuming you've named your variables i and allDivs, you can paste the code below into your submission
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+
+        allDivs[i].backgroundColor = `rgb(${r}, ${g}, ${b})`;
+      }
+
+      // String Literals - ES6
+      var string = '';
+      string = "";
+      string = ``;
+
+      var multiLineString = `
+          this     is
+              a
+            multi-line string
+      `;
+
+      // with string literals, you can print out the value of a variable inside a string
+      var rgbValue = "the rgb value is rgb(" + r + "," + g + "," + b + ")";
+      rgbValue = `the rgb value is rgb(${r},${g},${b})`;
+  </script>
+</body>
+</html>

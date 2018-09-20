@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="scopeTest.js" charset="utf-8"></script>
+  <title>Lesson 3</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <style media="screen">
+    /* #p1:hover {
+      background: yellow;
+    } */
+  </style>
+</head>
+<body>
+  <p id="p1" style="color: black; font-size: 10px">Paragraph 1</p>
+  <p id="p2">Paragraph 2</p>
+  <p id="p3">Paragraph 3</p>
+  <p id="p4">Paragraph 4</p>
+
+  <a class="offline" href="http://bcit.ca">BCIT</a>
+  <a class="online" href="http://bcit.ca">SFU</a>
+
+  <h1 id="myh1">Heading</h1>
+  <script>
+    // Named Functions (function = method)
+
+    // example of creating a 'user' for an application
+    // var firstname = prompt('Please enter your first name');
+    // var lastname = prompt('Please enter your last name');
+
+    // ASIDE: an example of creating a user object for use in the application
+    // var user = {
+    //   first: firstname,
+    //   last: lastname
+    // }
+    // console.log(user.first);
+
+
+    // if we need to create multiple 'users', rather than repeating the lines of code above, we can create a function and 'call' the function:
+
+    // simpler example with hard coded names
+    // called the 'definition' of the function
+    // NOTE: the code inside the function is not run until it is called (e.g createUser())
+    // function createUser() {
+    //   // any statement(s) between the braces will be run when the function is called
+    //   var firstname = prompt('Please enter your first name');
+    //   var lastname = prompt('Please enter your last name');
+    //   var user = {
+    //     first: firstname,
+    //     last: lastname
+    //   }
+    //   console.log(user.first);
+    // }
+
+    // createUser();  // 'calling' the function, i.e. running all of the statements inside the function
+
+
+
+    // functions with 'parameters', i.e. arguments, values that we can pass into the function
+
+    // 3 + 4  lhs + rhs
+
+    // function add(lhs, rhs) {
+    //   console.log(lhs + rhs);
+    // }
+    // add(3, 4); // this prints out 7
+    // add('chris', 'harris'); // prints out chrisharris
+    // add(3, 'harris'); // prints out 3harris
+    // add(3, undefined);  // prints out NaN
+    //
+    // add(3);  // still works, prints out NaN
+    // add(3, 4, 5, 6)  // still works, uses 3 and 4 and throws away the rest, prints out 7
+
+    // NOTE: you may need to check the data types of your parameters inside your function
+    // function sub(lhs, rhs) {
+    //   if (typeof(rhs) !== number) {
+    //     console.log('arguments must be numeric');
+    //   }
+    // }
+
+
+    // example of how we could rewrite createUser with parameters
+    // function createUser(firstname, lastname) {
+    //   var user = {
+    //     first: firstname,
+    //     last: lastname
+    //   }
+    //   console.log(user.first);
+    // }
+
+    // var firstname = prompt('...');
+    // var lastname = prompt('...');
+
+    // createUser(firstname, lastname);
+
+    // ASIDE - how the definition of console.log might look
+    // function log(param) {
+    //   // the code required to print the value of 'param' to the browser console
+    // }
+
+
+
+    // General points about functions:
+
+    // () - when we reference a named function, as in createUser(), the parentheses means 'run immediately';
+
+    // example of assigning a function to a variable
+    // var createUserAlias = createUser;  // no parentheses!
+    //
+    // var firstname = prompt('');
+    // var lastname = prompt('');
+    // createUserAlias(firstname, lastname);
+
+    // var createUserAlias = createUser(); // this runs the function immediately with nothing passed in as arguments
+
+    // NOTE: you can define default values for your parameters
+    // function createDog(name = 'rufus', age = 10) {
+    //   console.log(name + ' ' + age);
+    // }
+    // createDog('charlie', 12);  // prints charlie 12
+    // createDog(); // prints rufus 10
+
+
+    // you can also pass in a variable number of arguments (called 'rest' parameters, or the 'spread' operator)
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+    // function funcWithVarArgs(...varArgs) {
+    //   // ...
+    // }
+
+    // example of adding a function/method to an object
+    // var dog = {
+    //   name: 'charlie',
+    //   age: 'age',
+    //   speak: function () {
+    //     console.log('woof');
+    //   }
+    // }
+    // dog.speak();  // prints 'woof'
+  </script>
+  <script>
+    // Scope - when are variables accessible
+
+    // Two scopes: global and local/block   block means code inside of braces (i.e. inside a loop, if statement, function or object)
+
+    // Global - anything declared outside of a block is global scope
+    var y = 200; // global
+    z = 300; // global
+    let a = 400; // global
+
+    // global means that a variable can be accessed ANYWHERE, even between scripts - which means that you need to be very careful with globally scoped variables
+    // console.log(x);
+
+
+    // Block - variables declared of inside a block are only accessible inside the block
+    // function add(lhs, rhs) {  // lhs and rhs are also block
+    //   var sum = lhs + rhs;   // sum is block scope
+    //   console.log(sum);  // ok, because we are still inside the block
+    // }
+    // add(3, 10);
+    //
+    // console.log(rhs);  // error, rhs no longer defined
+    // console.log(sum);  // error, sum is no longer defined, it disappears after the closing brace of the add function
+
+
+    // the difference between var and let
+
+    // let is more strict
+    function scopeTest() {
+      var p = 10;
+      console.log(p);
+      // p is accessible here
+
+      for (let i = 0; i < 3; i++) {
+        // let is only accessible inside the closest containing block
+        // p is accessible inside the loop
+        // i is also accessible inside the loop
+        console.log(i + p); // ok, prints out 10, 11, 12
+      }
+
+      // console.log(i);  // this generates an error
+    }
+    scopeTest();
+    // console.log(i);  // error
+    console.log(p);  // error
+  </script>
+  <script>
+    // Returning values from a function
+    function multiply(lhs, rhs) {
+      var product = lhs * rhs;
+    }
+    // console.log(product); // error, so how do we access the result after the function is finished?
+
+    function multiplyThatReturnsProduct(lhs, rhs) {
+      // var product = lhs * rhs;
+      // return product; // the return keyword sends the value inside product back to where the function was called
+
+      return lhs * rhs; // accomplishing the above in one line
+
+      // ternary conditional statement
+      // return lhs ? lhs * rhs : "you didn't enter a lhs argument";
+      // the above means
+      // if (lhs) { return lhs * rhs } else { return "you didn't enter a lhs argument" }
+    }
+    var result = multiplyThatReturnsProduct(2, 12);
+    console.log(result);
+    console.log(multiplyThatReturnsProduct(2, 24));
+
+
+    // NOTE: you can only have one return statement
+    function functionWithMistake(lhs, rhs) {
+      var product;
+
+      return product;  // this stops the function, so lines 203 and 204 are not executed
+
+      product = lhs * rhs;
+      return product;
+    }
+    functionWithMistake(42, 42);
+
+    // practice: create a function with a couple of parameters and call the function with different arguments, return a value from the function and use it
+  </script>
+  <script>
+    // THIS keyword
+
+    // the keyword 'this' refers to the element/object that called a function
+    console.log(this); // returns the window object any time we are outside of a function
+
+    // var p = document.getElementById('p1');
+    // p.onclick = myClickEvent  // p called the myClickEvent function, so 'this' will return the paragraph element
+
+    // var myH1 = document.getElementById('myh1');
+    // myH1.onclick = myClickEvent;  // now 'this' refers to the h1 element
+
+    // var allPs = document.getElementsByTagName('p');
+    //
+    // for (let i = 0; i < allPs.length; i++) {
+    //   allPs[i].onclick = function() {
+    //     myClickEvent(i);
+    //   };
+    // }
+    // for (var i = 0; i < allPs.length; i++) {
+    //   allPs[i].onclick = function() {
+    //     myClickEvent(i);
+    //   };
+    // }
+
+    // function myClickEvent(id) {
+    //   console.log(id);  // if using var, the value for each paragraph is 4, because the value of i after the for loop finished is 4
+    // }
+  </script>
+  <script>
+    // EVENTS
+
+    // window.onload = function() {}
+
+    /*
+      User generated events
+      onclick
+      ondblclick
+      onmouseenter
+      onmouseleave
+      resize
+    */
+    var firstParagraph = document.getElementById('p1');
+
+    // onclick example using named function
+    function clickEvent() {
+      console.log(this.style.color)
+    }
+    firstParagraph.onclick = clickEvent;  // this means run the clickEvent() function WHEN the first paragraph is clicked
+
+    // ondblclick using an anonymous function
+    firstParagraph.ondblclick = function() {
+      console.log(this.style.fontSize);
+    }
+
+    // hover using onmouseenter and onmouseleave
+    function mouseEnter() {
+      console.log('the mouseEnter event occurred');
+      this.style.backgroundColor = 'yellow';
+    }
+    function mouseLeave() {
+      console.log('the mouseLeave event occurred');
+      this.style.backgroundColor = 'white';
+    }
+    firstParagraph.onmouseenter = mouseEnter;  // onmouseenter occurs when the cursor enters the padding/element
+    firstParagraph.onmouseleave = mouseLeave; // onmouseenter occurs when the cursor leaves the padding/element
+
+
+    // Assignment one, part 6 - resize event
+    // the resize event fires when the browser window is physically resized
+    window.onresize = function() {
+      console.log(window.innerWidth);
+    }
+
+  </script>
+  <script>
+    // event.preventDefault() - this is a global method to prevent default browser behaviour (stopping links from sending you to a new page)
+
+    // document.links[0].onclick = function() {
+    //   event.preventDefault();
+    // }
+
+    // Assignment 1, part 5
+    // need onclick, event.preventDefault(), .className, .indexOf
+    for (let i = 0; i < document.links.length; i++) {
+      document.links[i].onclick = function() {
+        if (this.className.indexOf('offline') > -1) {
+          event.preventDefault();
+        }
+      }
+    }
+  </script>
+  <script>
+    // jQuery - library of scripts that you include in your page, that give you access to many helper functions
+    // https://code.jquery.com/
+    // you can copy and paste the script above into your .html file
+
+    // NOTE: any scripts using jQuery have to be included AFTER the jQuery script
+
+    // $('') - the string argument is any valid css selector
+    // you can replace the $ with jQuery
+    // jQuery('')
+
+    // examples of why to use jQuery
+
+    // changing all paragraphs to color: red
+
+    // in javascript:
+    // var paragraphs = document.getElementsByTagName('p');
+    // for (let i = 0; i < paragraphs.length; i++) {
+    //   paragraphs[i].style.color = 'red';
+    // }
+
+    // in jquery
+    $('p').css('color', 'red');
+
+    // javascript version of toggling a class (for assignment 1, part 6)
+    // Assignment 1, part 6 - querySelector()
+    var menuicon = document.querySelector('.toggle img');
+    var headernav = document.querySelector('div.header-nav');
+
+    menuicon.onclick = function() {
+      if (headernav.classList.contains('hide')) {
+        headernav.classList.remove('hide');
+        headernav.classList.add('show');
+        // menuicon.src = 'x.svg'
+      }
+      else {
+        headernav.classList.remove('show');
+        headernav.classList.add('hide');
+        // change menuicon source to menu.svg
+      }
+    }
+
+    // jquery version TBD
+
+
+    // jQuery version of window.onload = function() {}  - for the quiz
+    $(document).ready(function() {})
+
+
+  </script>
+  <script>
+    // assignment1, part 2
+    var name = prompt('please enter your name');
+
+    if (name !== '') {
+      // addUserFunction(name)   - you do not have to create the addUserFunction yourself
+    }
+
+
+    // assignment1, part 4
+    $('a').hover(function(){
+      // mouseenter section
+      $(this).style.color = 'blue';
+    }, function(){
+      // mouseleave section
+      // change style.color = 'white';
+    })
+  </script>
+  <script>
+    // lab 3
+
+    // part 2
+    /*
+        pink  colors[0]
+        violet  colors[1]
+        lightblue   colors[2]
+    */
+
+    <p>Paragraph 0</p>  hover pink
+    <p>Paragraph 1</p>  hover violet
+    <p>Paragraph 2</p>  hover lightblue
+
+    // part 4
+    window.onresize = function() {
+      if (window.innerWidth < 800) {
+        // change the color of the h1 to red
+      }
+      else {
+        // change the color to black
+      }
+    }
+  </script>
+</body>
+</html>

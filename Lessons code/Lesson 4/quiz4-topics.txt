@@ -1,0 +1,11 @@
+1. know how to run a line of code after a specified delay
+
+2. create a simple JSON object
+
+3. explain (briefly) the difference between GET and POST
+
+4. setTimeout
+
+5. setInterval
+
+6. know how to animate an element using style.left

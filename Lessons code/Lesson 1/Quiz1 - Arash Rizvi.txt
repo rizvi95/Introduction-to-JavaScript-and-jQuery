@@ -1,0 +1,40 @@
+Arash Rizvi - Quiz one for COMP 2015
+
+Question 1: 
+
+windows.onload = function() {
+    console.log('The page is loaded');
+}
+
+Question 2:
+
+Single line comment in javascript is only comments out one line
+the comment id denoted by: //put commented stuff here
+
+Multi-line comments in javascript comment out mulitple lines within the 
+comment. The comment is denoted by: /* put commented stuff here*/
+
+Question 3:
+
+2 things javascript is not allowed to do:
+
+1)  Read (or write to) the client’s file system
+2)  Cannot hide JavaScript
+
+Question 4:
+
+document.images[2].style.border = "4px solid black";
+
+Question 5:
+
+1)  document - the html page
+2)  window - the current window or tab
+3)  style - the css properties of a single element
+4)  navigator - the browser
+
+Question 6:
+
+var firstname = "Arash";
+var lastname = "Rizvi";
+
+alert(firstname + ' ' + lastname); 

@@ -1,0 +1,15 @@
+1. name a couple of things cannot do (from the list in the lesson 1 notes)
+
+2. show an example of a single-line and multi-line comment
+
+3. get an element on the page, and set a style property
+  document.images[1].style.border = "4px solid red";
+
+4. name the four objects discussed in lesson one and give a short description of each (check the 'Four Objects' section in the lesson1.html file uploaded to D2L Lesson 1)
+
+5. know the correct syntax for window.onload
+  window.onload = function() {
+
+  }
+
+6. create two variables, assign them each a value, then join them together (using +) and alert the result

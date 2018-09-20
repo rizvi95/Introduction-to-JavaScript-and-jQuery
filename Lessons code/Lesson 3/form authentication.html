@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<htmllang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation</title>
+</head>
+<body>
+    <formid="myform" action="">
+        <p>
+            <label for="email">Email:</label>
+            <input type="text" class="required" id="email" name="email">
+        </p>
+        <p>
+            <label for="password">Password:</label>
+            <input type="text" class="required" id="password" name="email">
+        </p>
+        <p>
+            <inputtype="submit">
+        </p>
+    </form>
+    <script>window.onload =function() {
+        document.forms[0].onsubmit =function() {
+            varinputs =this.elements;
+            varlabels = document.getElementsByTagName('label');
+            varerror =false;
+            for(leti = 0; i < inputs.length; i++){
+                vartheClass = inputs[i].className;
+                if(theClass.indexOf("required") >= 0 &&inputs[i].value.length < 1) {
+                    alert(inputs[i].id +' must not be empty');
+                    labels[i].setAttribute('style','color: red');
+                    error =true;
+                }
+            }
+            if(error) {// equivalent to if (error == true)
+                returnfalse;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

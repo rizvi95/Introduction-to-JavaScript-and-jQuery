@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lesson 5</title>
+</head>
+<body>
+  <p id="addUser">Add User</p>
+  <ul class="userlist">
+    <li>Chris</li>
+    <li>Jason</li>
+    <li>Bill</li>
+  </ul>
+  <p></p>
+  <script>
+    // JSON objects
+    var user = {
+      "name": "chris",
+      "status": "offline"
+    }
+
+    // for assignment 2 - addUser() function
+    // an array of JSON objects
+    var userArray = [
+      {
+        "name": "chris",
+        "status": "offline"
+      },
+      {
+        "name": "chris",
+        "status": "offline"
+      },
+      {
+        "name": "chris",
+        "status": "offline"
+      }
+    ]
+
+    var addAUser = document.getElementById('addUser');
+    addAUser.onclick = function() {
+      var name = prompt('enter a username');
+      if (name !== '') { myFunction(name); }
+    }
+
+    function myFunction(nameParam) {
+      var user = {
+        "name": nameParam,
+        "status": "offline"
+      }
+      userArray.push(user);
+    }
+
+    // assignment 2, part 1 step 4 - emptying out the <ul class="userlist"></ul>
+
+    // ASIDE:
+    // what data type is returned from the following functions
+    /*
+      document.getElementById() - object, html element
+      document.querySelector('') - object, html element
+      document.querySelectorAll() - an array
+      document.getElementsByClassName() - an array of elements
+      document.getElementsByTagName() - an array of elements
+
+      <ul class="userlist"></ul>
+      var list = document.getElementsByClassName('userlist')[0];
+      list.style.color // error -> list is an array
+    */
+
+    var list = document.getElementsByClassName('userlist')[0];
+
+    // .innerHTML property - returns a string representation of all the html inside a given element
+    console.log(list.innerHTML);
+    // list.innerHTML = "";
+
+    // note: be careful when using innerHTML - it will overwrite any HTML inside an element
+  </script>
+  <script>
+    // DOM SCRIPTING - creating/moving elements on the page
+
+    // .createElement(validCSSSelector) - creates an html element object (but does not add it to the page)
+    var myH1 = document.createElement('h1');
+
+    // created elements behave exactly the same as elements that we retrieve from the DOM
+    myH1.id = 'myHeading';
+
+    // to attach a created element to the page, use .appendChild(objectVariable)
+    // appendChild will always insert the new element as the last child of the parent element
+    document.body.appendChild(myH1);
+
+    // adding a property after appending
+    myH1.style.color = 'red';
+
+    // NOTE: document.body.appendChild() not document.appendChild
+
+    // DOM 'nodes' - https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+
+    // .childNodes - an array of all the child nodes of a given element
+
+    /*
+        properties we can use to manipulate the DOM
+        .nextElementSibling
+        .previousElementSibling
+        .parentNode
+
+        // the following will take into account text nodes
+        .nextSibling
+        .previousSibling
+    */
+    var p = document.getElementById('addUser');
+
+    // example of swapping positions of elements on the page
+    // NOTE: only parent elements can rearrange children, children cannot rearrange themselves
+    if (p.nextElementSibling !== null) {
+      document.body.insertBefore(list, p);
+    }
+
+    //
+    var firstListItem = document.querySelector('.userlist li');
+    if (firstListItem.parentNode.nextElementSibling !== null) {
+      console.log(list);
+      firstListItem.parentNode.nextElementSibling.appendChild(firstListItem);
+      // <li>         <ul>       <p>                              <li>
+    }
+
+
+
+    // Text Nodes
+    // var myH1 = document.createElement('h1');
+    // document.body.appendChild(myH1)
+
+    // .createTextNode(string)
+    var h1Text = document.createTextNode('HEADING');
+    myH1.appendChild(h1Text);
+
+
+    /*
+        practice:
+        create an h1
+        create a text node and append it inside the h1
+
+        create a span
+        create a text node and append it inside the span
+
+        append the span inside the h1
+        append the h1 to the body
+    */
+
+    var list = document.getElementsByTagName('ul');
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].nodeType === 1) {
+        // only elements
+      }
+      if (list[i].nodeType === 3) {
+        // only text nodes
+      }
+    }
+  </script>
+  <script>
+    // lab 3 - to stop the first frame jumping
+    var container = document.getElementsByClassName('slide-container')[0];
+    // container.style.left = '0px';
+  </script>
+  <script>
+    // for assignment 2, fetching the data is done for you using the .fetch() method, and fetch uses 'promises'
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+  </script>
+  <script>
+    // LAB 5
+    var data = {
+      "userid":"1",
+      "username":"chris",
+      "password":"123456",
+      "message":{"id":"1","body":"Hello? Anyone there?"}
+    }
+    // data.username  ->  "chris"
+    // data.message.body   -> "Hello? Anyone there?"
+  </script>
+  <script>
+    // assignment 2, part 5 and 6,
+    // first, create your user array and create an empty addUserFunction(name)
+    var user = [
+      {},
+      {},
+      {}
+    ]
+    function addUserFunction(name) {
+      // part 5
+
+      resetLinks();
+    }
+
+    // for part 2
+    // for each of the message objects in the fetched array, you need to create this structure:
+    /*
+    <div class="message chris">
+      <div class="author"></div>
+      <div class="message-content">
+        <p>{data goes here}</p>
+      </div>
+    </div>
+    */
+
+    function assignment2(response) {
+      // response is an array of JSON objects
+      // need to loop through the array and create the HTML structure above for each object -> use a 'for-in' loop
+      for (data in response) {
+        /*
+          7. Assign the message content from the data to the .innerHTML property of the paragraph. The message content can be accessed (assuming you have named your loop variable 'data') with response[data].message.body
+
+          response[data] = {
+            "userid":"1",
+            "username":"chris",
+            "password":"123456",
+            "message":{"id":"1","body":"Hello? Anyone there?"}
+          }
+        */
+      }
+
+      /*
+          var dog = { name: 'charlie', age: 12 }
+          for (let property in dog) {
+            console.log(property);  // prints out the property name
+            console.log(dog[property]);  // prints out the value
+          }
+      */
+    }
+  </script>
+</body>
+</html>

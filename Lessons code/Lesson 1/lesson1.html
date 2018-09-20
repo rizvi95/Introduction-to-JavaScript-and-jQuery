@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script defer src="lesson1.js"></script>
+  <script>
+    // alert('first');
+    // alert('second');
+    // document.getElementsByTagName('h1')[0].style.color = 'red'; // error! h1 is not defined yet
+
+    window.onload = function() {
+      document.getElementsByTagName('h1')[0].style.color = 'blue'; // ok! script runs after page is loaded, so h1 exists
+    }
+  </script>
+  <style>
+    img { width: 600px; } /* ALSO BAD */
+  </style>
+</head>
+<body>
+  <img src="dog.jpg" alt="" width="100">  <!-- BAD -->
+  <img src="cat.jpg" alt="">
+  <img src="bird.jpg" alt="">
+  <h1>Lesson 1
+  <script>
+      /*
+          // USEFUL TOOLS
+          // emmet.io
+          after emmet is installed, in a blank .html file type 'html:5' and hit tab
+
+          ul>li*6 and hit tab
+
+          ul.classname -> hit tab, expands to <ul class="classname">
+
+          ul[style="margin-left:0"]>li{list item}*6
+
+          ul[style="margin-left:0"]>li[id="listitem$"]{list item $}*6 -> expands to
+          <ul style="margin-left:0">
+            <li id="listitem1">list item 1</li>
+            <li id="listitem2">list item 2</li>
+            <li id="listitem3">list item 3</li>
+            <li id="listitem4">list item 4</li>
+            <li id="listitem5">list item 5</li>
+            <li id="listitem6">list item 6</li>
+          </ul>
+
+          // jslint - https://www.jslint.com/
+
+          // developer tools - ctrl-shift-i or F12  (for safari -> go to advanced preferences and enable 'show develop menu in menu bar')
+          // console and elements tabs
+      */
+  </script>
+  <script>
+    // DOM - document object model
+    // https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction
+
+    // Three different places that we can add javascript
+    // 1. in the head using script tags
+    // 2. in the body (usually right before the closing body tag) using script tags
+    // 3. in external files using <script src="lesson1.js">
+
+    // IMPORTANT: your scripts must be run AFTER any html elements you are trying to access or change
+    // document.getElementsByTagName('h1')[0].style.color = 'red'; // works
+
+    // we can get around this limitation by surrounding
+    // window.onload = function() {
+    //   // add your js statements
+    // }
+  </script>
+  <script>
+    // COMMENTS - ctrl-/
+    // alert('hi');
+
+    // three different types of comments in js
+    // single-line comment
+    /*
+        multi-line comments
+    */
+
+
+
+    /*
+    <!--
+        this is a valid html multi-line comment, but not valid in js
+    -->
+    <!-- single line comment DO NOT USE (please)
+    */
+  </script>
+  <script>
+    /**************** OBJECTS ****************/
+    // javascript uses DOT NOTATION for interacting with objects
+
+    // object.   the left-hand side of the dot is the object
+    // document.  the document object
+    // alert() can also be written window.alert()
+
+    // Four Objects (QUIZ ONE)
+    /*
+      document - the html page
+      window - the current window/tab
+      style - the css properties of a *single* element
+      navigator - the browser
+    */
+    // console - the console (in the browser)
+    console.log('debugging');  // very useful for debugging
+
+    // the right-hand side of the dot notation can either be a method/property
+    // a method (function) is an action (verb) - eg getElementsByTagName()
+    // a property is a value that you can GET or SET
+    console.log(window.innerWidth); // this returns how wide the browser window is
+
+
+    /**************** VARIABLES ****************/
+    // a container that can store simple values (number, string), or elements
+
+    // to CREATE a variable, you must start with 'var'
+    // AFTER the variable is created, if we want to change the value, the var keyword is not needed
+    var x;
+    var y = 10;
+    console.log(y);
+    y = 20;
+    console.log(y);
+
+    // for part 2 of the lab
+    /**************************************/
+    var firstname;
+    var lastname;
+          
+    // prompt('message that you want displayed to the user')
+    firstname = prompt('Enter your firstname');
+    lastname = prompt('Enter your last name');
+
+    console.log(firstname + ' ' + lastname);
+    /**************************************/
+
+    // in the console, you can enter a variable name and hit enter and the value that is currently stored inside the variable will be printed out
+
+    // note: the type of value stored in a variable can change
+    var z = 10;
+    console.log(typeof(z));
+    z = "chris";
+    console.log(typeof(z));
+    // z = []; array
+    // z = {}; object
+
+    /**************** MATHEMATICAL OPERATORS ****************/
+    /*
+        +, -, * (multiply), / (divide), % (remainder)
+    */
+    x = 10;
+    y = 5;
+    console.log(x + y);
+
+    // the + operator can also be used to join strings (strings are any sequence of characters inside of quotes)
+    var name = "chris";
+    var year = "2018";  // double quotes and single quotes are treated the same
+    var year = '2018';
+
+    console.log(firstname + " " + lastname + "!!!");
+
+    // for part 3 of lab 1
+    var firstImageWidth = document.getElementById('img1').width; // get the width of img1 and store it in a variable
+    document.getElementById('img2').width = firstImageWidth; // set the width of img2 to the value stored in firstImageWidth
+    // now do the same with img3
+  </script>
+</body>
+</html>

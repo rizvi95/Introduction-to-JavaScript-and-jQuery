@@ -1,0 +1,235 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <img src="dogrates.jpg" alt="">
+    <button id="timer">CLICK</button>
+    <script>
+      // Assignment 1
+
+      // jQuery vs javascript
+
+      // javascript version:
+      /*
+        var onlineLinks = document.querySelectorAll('.online');
+        for (let i = 0; i < onlineLinks.length; i++) {
+          onlineLinks.style.color = 'white';
+        }
+      */
+
+      // jQuery
+      /*
+          $('.online').css('color', 'white');
+          $('a').not('.offline').css('color', 'white')
+      */
+
+      /*
+        assignment 1, part 5
+
+        onclick -> click()
+        ondblclick -> dblclick()
+        onmouseover -> hover()
+        onmouseleave -> hover()
+
+        $('.online').click(function() {
+          event.preventDefault();  // this is always available inside an event handler
+        })
+      */
+
+      /*
+          <a href="" id="link1">
+            <img>
+          </a>
+          querySelector('#link1 img');
+          querySelector('a[^href="bcit"]')
+      */
+
+      /*
+        <a href="" class="class1 class2"
+        console.log(myLink.className) // class1 class2
+        myLink.className = 'class3'; // overwrites
+        console.log(myLink.className) // class3
+
+        .classList <- array of all class names
+        .classList.remove('class1');
+        .classList.add('class3');
+        console.log(myLink.className) // class2 class3
+      */
+    </script>
+    <script>
+      // Timers and Animations
+
+      // two functions: setTimeout(), setInterval()
+
+      // setTimeout() - runs once
+
+      // setTimeout(string, numberOfMillisecondsToWait)
+      /*
+        make sure to alternate quotes
+        'alert('hi')' <- interpreted as 'alert(', hi, ')'
+        'alert("hi")'
+      */
+      // setTimeout('alert("hello")', 3000);
+
+      // you can have multiple statements inside the string
+      // setTimeout('alert("hello again"); console.log("hi")', 5000);
+
+
+      // setTimeout(namedFunction, numberOfMillisecondsToWait)
+      // setTimeout(function() {}, numberOfMillisecondsToWait)
+      // function sayHello() {
+      //   console.log('hi');
+      // }
+      // setTimeout(sayHello, 5000);
+      // setTimeout(function(){
+      //   alert("hello again");
+      //   console.log("hi");
+      // }, 5000);
+
+
+
+      // Event Loop and asynchronicity
+      // console.log('goodbye'); // this will run before the timeout above because the timeout is *scheduled* to execute at a later time
+
+      // event loop - https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop
+
+      // javascript only executes one statement at a time
+      // var name = prompt('please enter your name'); // prompt 'blocks' and occupies the event loop, meaning that the code below will not run until the user input is returned
+
+      // setTimeout(function() {
+      //   console.log('done');
+      // }, 5000);
+    </script>
+    <script>
+      // setInterval - runs statement(s) at a given interval
+
+      // setInterval('alert("hello")', 5000); // alert the user every 5 seconds until the end of time
+
+      // setInterval(string, millisecondInterval)
+      // setInterval(function() {}, millisecondInterval);
+
+      var i = 0;
+      var j = 'a';
+      // setInterval('console.log(i++)', 10);
+      // the console.log() above cannot be stopped
+
+      // in order to control our interval we can use the return value from setInterval() - an integer id
+
+      // setInterval starts the animation/process
+
+      // var timer;
+      // var anotherTimer;
+      // timer = setInterval('console.log(i++)', 3000);
+      // anotherTimer = setInterval('console.log(j += "a")', 3000);
+
+      // the id can be used to stop the process/animation
+      /* clearInterval(id) */
+      // setTimeout(function() {
+      //   // clearInterval stops the animation/process
+      //   clearInterval(timer);
+      //   clearInterval(anotherTimer);
+      // }, 5000);
+
+
+      // Animation
+      var img = document.images[0];
+      img.style.position = 'absolute';
+      img.style.left = '0px';  // style.left is the distance from the left edge of the element to the left edge of the window
+      var position = 0;
+
+      // img.onclick = function() {
+      //   setInterval(animate, 20);
+      // }
+      //
+      // function animate() {
+      //   position++;
+      //   img.style.left = position + 'px';
+      // }
+
+      var timer = null;
+
+      img.onclick = animate;
+
+      function animate() { // this function will only be responsible for starting and stopping the animation
+        if (timer == null) {
+          // animation hasn't started, or it has been stopped
+          timer = setInterval(move, 20);
+        }
+        else {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+      function move() {
+        position++;
+        img.style.left = position + 'px';
+      }
+
+
+      // example
+      var button = document.getElementById('timer');
+      var timer = null;
+
+      button.onclick = run;
+
+      function run() {
+        if (timer == null) {
+          timer = setInterval(increment, 100);
+        }
+        else {
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      var i = 0;
+      function increment() {
+          console.log(i++);
+      }
+    </script>
+    <script>
+      // use 'event' as parameter to ensure compatibility with all browsers
+      // link.onclick = function(event) {
+      //   event.preventDefault();
+      // }
+    </script>
+    <script>
+      // JSON - data format for javascript
+
+      // JSON objects - key/value pairs (separated by commas) inside of braces, keys must be strings, values can be any valid javascript data
+      var emptyObject = {};
+      var dog = {
+        "name": "charlie",
+        "age": 12
+      }
+      // window.innerWidth;
+      console.log(dog.name);
+      dog.name = "rufus";
+      console.log(dog.name);
+
+
+      // REST methods
+      // https://spring.io/understanding/REST
+      // GET - retrieves data from a server
+      // POST - putting data on a server
+
+      // PUT, PATCH, DELETE
+    </script>
+    <script>
+      // Lab 4
+
+      // using a for loop to assign image sources
+      document.images[i].src = 'dog' + i + '.jpg'
+
+      /*
+      .querySelector() - returns one element, the first match
+      .querySelectorAll() - returns an array of all matching elements
+      */
+
+      var slideImages = document.querySelectorAll('.slide img');
+      for (let i = 0; i < slideImages.length; i++) {
+
+      }
+    </script>
+  </body>
+</html>

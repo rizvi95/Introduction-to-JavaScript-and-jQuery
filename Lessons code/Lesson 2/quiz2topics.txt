@@ -1,0 +1,11 @@
+1. given a statement
+    x = 10;
+    (x < 5) && (x >= 10)
+    is the whole statement true or false
+
+2. be able to a) create an array, b) add a few values to it (using .push or square-bracket notation) and c) display one of the values
+
+3. use .indexOf inside a for loop to test for a search string inside another string
+
+4. change the css properties of all items inside an array
+
